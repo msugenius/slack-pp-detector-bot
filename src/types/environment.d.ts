@@ -13,6 +13,8 @@ declare global {
             MYSQL_USER: string;
             MYSQL_PWD: string;
             MYSQL_DB: string;
+
+            TIME_INTERVAL_IN_MINUTES: number;
         }
     }
 }

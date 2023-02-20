@@ -42,7 +42,7 @@ export default class Watcher {
     }
 
     private _sleep() { 
-        return new Promise((resolve) => setTimeout(resolve, 1 * 60 * 1000))
+        return new Promise((resolve) => setTimeout(resolve, process.env.TIME_INTERVAL_IN_MINUTES * 60 * 1000))
     }
 
     private async _notifyUsers(slackProfile: SlackInfo) {
