@@ -1,8 +1,8 @@
 export default {
-    start: "Привет!\nЧтобі начать отслеживать рупу, отправьте мне команду /watch!",
-    subscribingInProgress: "Добавляю єтот чат в список отслеживателей рупі...",
-    successfullySubscribed: "Чат добавлен в список отслеживателей.",
-    unsubscribingInProgress: "Удаляю вас из отслеживателей рупі.",
-    successfullyUnsubscribed: "Чат удален из списка отслеживателей.",
+    start: "Привіт!\nДля того, щоб почати відстежування рупи, відправте мені команду /watch!",
+    subscribingInProgress: "Додаю цей чат у відстежувачів рупи...",
+    successfullySubscribed: "Чат було додано у список відстежувачів.",
+    unsubscribingInProgress: "Видаляю цей чат з відстежувачів рупи.",
+    successfullyUnsubscribed: "Чат було видалено зі списку відстежувачів.",
     avatarChanged: "honey wake up, new roopa avatar just dropped!"
 }
