@@ -6,7 +6,7 @@ declare global {
             BOT_TOKEN: string;
 
             SLACK_TOKEN: string;
-            SLACK_ROOPA_UID: string;
+            SLACK_USER_UID: string;
 
             MYSQL_HOST: string;
             MYSQL_PORT: number;

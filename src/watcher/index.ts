@@ -24,7 +24,7 @@ export default class Watcher {
             try {
                 logger.logInfo("Checking for changes...")
 
-                let profile = await slack.getProfileInfo(process.env.SLACK_ROOPA_UID);
+                let profile = await slack.getProfileInfo(process.env.SLACK_USER_UID);
                 let storedInfo = await this._repository.getAvatarHash()
 
                 if (profile.avatar_hash !== storedInfo.avatar_hash) {
