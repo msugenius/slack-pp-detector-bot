@@ -17,6 +17,4 @@ CREATE TABLE `chat_ids` (
   `last_updated` datetime DEFAULT NULL
 );
 
-INSERT INTO `chat_ids` (`chat_id`, `last_updated`) VALUES
-(-1001609408550, '2023-02-20 15:11:48');
 COMMIT;
