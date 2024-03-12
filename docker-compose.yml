@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=caching_sha2_password
+    ports:
+      - ${MYSQL_PORT}:3306
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DB}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PWD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql
+      - ./mysql/seed.sql:/docker-entrypoint-initdb.d/1.sql
