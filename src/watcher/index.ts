@@ -1,10 +1,10 @@
-import { Context, Telegraf } from "telegraf";
-import { Update } from "telegraf/typings/core/types/typegram";
-import messages from "../constants/messages";
-import slack from "../slack";
-import { SlackInfo } from "../slack/slackInfo";
-import { StorageRepository } from "../storage/repository";
-import logger from "../utils/logger";
+import { Context, Telegraf } from "telegraf"
+import { Update } from "telegraf/typings/core/types/typegram"
+import messages from "../constants/messages"
+import slack from "../slack"
+import { SlackInfo } from "../slack/slackInfo"
+import { StorageRepository } from "../storage/repository"
+import logger from "../utils/logger"
 
 export default class Watcher {
     private readonly _bot: Telegraf<Context<Update>>;
@@ -37,6 +37,7 @@ export default class Watcher {
             }
             catch (err: any) {
                 logger.logError(err)
+                await this._sleep()
             }
         } while (true);
     }
