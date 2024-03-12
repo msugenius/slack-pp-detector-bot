@@ -21,6 +21,7 @@ export default class Watcher {
     await this._prismaService.avatar_info.create({
       data: {
         avatarHash: profile.avatar_hash,
+        avatarUrl: profile.image_original
       },
     })
     logger.logInfo('The avatar has been updated.')

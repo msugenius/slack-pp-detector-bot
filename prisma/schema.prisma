@@ -9,6 +9,7 @@ datasource db {
 
 model avatar_info {
   avatarHash String   @id() @map("avatar_hash") @db.Char(12)
+  avatarUrl String @map("avatar_url")
   updatedAt  DateTime @default(now()) @updatedAt @map("updated_at") @db.DateTime(0)
 }
 
