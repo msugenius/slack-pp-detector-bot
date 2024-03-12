@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model avatar_info {
+  avatarHash String   @id() @map("avatar_hash") @db.Char(12)
+  updatedAt  DateTime @default(now()) @updatedAt @map("updated_at") @db.DateTime(0)
+}
+
+model chat_ids {
+  chatId    BigInt   @id() @map("chat_id")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.DateTime(0)
+}

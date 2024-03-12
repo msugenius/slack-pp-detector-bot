@@ -1,42 +1,57 @@
-import { Telegraf } from "telegraf"
-import messages from "../constants/messages"
-import { StorageRepository } from "../storage/repository"
-import logger from "../utils/logger"
-import Watcher from "../watcher"
+import { PrismaClient } from '@prisma/client'
+import { Telegraf } from 'telegraf'
+import messages from '../constants/messages'
+import logger from '../utils/logger'
+import Watcher from '../watcher'
 
-const startBot = () => {
-    logger.logInfo('Configuring the bot...')
-    const bot = new Telegraf(process.env.BOT_TOKEN)
+const startBot = (prismaService: PrismaClient) => {
+  logger.logInfo('Configuring the bot...')
+  const bot = new Telegraf(process.env.BOT_TOKEN)
 
-    bot.start((ctx) => {
-        if (ctx.chat.type === "private") return;
-        
-        ctx.reply(messages.start)
-    })
+  bot.start(ctx => {
+    if (ctx.chat.type === 'private') return
 
-    bot.command("/watch", async (ctx) => {
-        ctx.reply(messages.subscribingInProgress)
-        
-        let repository = new StorageRepository();
-        await repository.addNewChat(ctx.chat.id);
+    ctx.reply(messages.start)
+  })
 
-        ctx.reply(messages.successfullySubscribed)
-    })
+  bot.command('/watch', async ctx => {
+    ctx.reply(messages.subscribingInProgress)
 
-    bot.command("/stopwatch", async (ctx) => {
-        ctx.reply(messages.unsubscribingInProgress)
-        
-        let repository = new StorageRepository();
+    try {
+      await prismaService.chat_ids.create({
+        data: {
+          chatId: ctx.chat.id,
+        },
+      })
+    } catch (e: any) {
+      logger.logError(e)
+    }
 
-        await repository.removeChat(ctx.chat.id)
-        ctx.reply(messages.successfullyUnsubscribed)
-    })
+    ctx.reply(messages.successfullySubscribed)
+  })
 
-    bot.launch()
-    logger.logInfo('The bot has been started.')
+  bot.command('/stopwatch', async ctx => {
+    ctx.reply(messages.unsubscribingInProgress)
 
-    let watcher = new Watcher(bot);
-    watcher.startWatching()
+    try {
+        await prismaService.chat_ids.delete({
+          where: {
+            chatId: ctx.chat.id,
+          },
+        })
+      } catch (e: any) {
+        logger.logError(e)
+      }
+
+    ctx.reply(messages.successfullyUnsubscribed)
+  })
+
+  bot.launch()
+  logger.logInfo('The bot has been started.')
+
+  let watcher = new Watcher(bot, prismaService)
+  watcher.startWatching()
 }
 
 export { startBot }
+
